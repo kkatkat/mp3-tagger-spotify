@@ -1,0 +1,25 @@
+{
+    "name": "mp3-tagger-spotify",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "ID3 tagger for mp3 files which gets metadata from the Spotify API",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "dev": "tsc && node dist/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^22.13.13",
+        "typescript": "^5.8.2"
+    },
+    "dependencies": {
+        "@spotify/web-api-ts-sdk": "^1.2.0",
+        "axios": "^1.8.4",
+        "node-id3": "^0.2.8",
+        "path": "^0.12.7"
+    }
+}
