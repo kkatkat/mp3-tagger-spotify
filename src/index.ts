@@ -4,7 +4,7 @@ import settings from "./settings.js";
 import path from "path";
 import fs from 'fs';
 import { Mp3File, SongTags } from "../types.js";
-import { getImageBuffer } from "./util.js";
+import { cleanQuery, getImageBuffer } from "./util.js";
 import NodeID3 from "node-id3";
 
 const api = SpotifyApi.withClientCredentials(
@@ -30,9 +30,9 @@ const mp3Files: Mp3File[] = fileNames.map((fileName) => {
 
 for (const song of mp3Files) {
     let response;
+    const cleanedQuery = cleanQuery(`${song.fileSongTitle} ${song.fileSongArtist}`);
     try {
-        const query = `${song.fileSongTitle} ${song.fileSongArtist}`;
-        response = await api.search(query, ["track"], undefined, 1, 0);
+        response = await api.search(cleanedQuery, ["track"], undefined, 1, 0);
     } catch (error) {
         console.log(song.fileNameNoExtension);
         console.error(error);
@@ -71,9 +71,9 @@ for (const song of mp3Files) {
     const result = NodeID3.write(tags, song.path);
 
     if (result === true) {
-        console.log('✅ ' + song.fileNameNoExtension);
+        console.log(`✅ \x1b[32m${song.fileNameNoExtension} \x1b[0m| Query: ${cleanedQuery}`);
     } else {
-        console.log('❌ ' + song.fileNameNoExtension + result.message);
+        console.log(`❌ \x1b[31m${song.fileNameNoExtension} \x1b[0m| Query: ${cleanedQuery} | ${result.toString()}`);
     }
 
 }
