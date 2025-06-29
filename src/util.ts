@@ -15,5 +15,7 @@ export function cleanQuery(query: string) {
         .replace(/ original mix/gi, '')
         .replace(/ extended mix/gi, '')
         .replace(/ radio edit/gi, '')
+        .replace(/ &/g, '')
+        .replace(/,/gi, '')
         .trim();
 }
